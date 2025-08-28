@@ -3,7 +3,7 @@
 This repository contains a Python implementation of an **unsupervised machine learning pipeline** for detecting faults in **pulse oximeter sensor data**.  
 The approach uses **preprocessing, feature extraction, normalization across recordings, and anomaly detection** to flag unusual sensor behaviors.  
 
-⚠️ **Note**: This is an **educational/research project**, not a clinical diagnostic tool.
+⚠️ **Note**: This is an **educational project**, not a clinical diagnostic tool.
 
 ---
 
