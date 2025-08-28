@@ -14,12 +14,12 @@ However, faulty readings due to **motion artifacts, poor sensor contact, or envi
 
 This project demonstrates a **machine learning-based workflow** for detecting faulty readings:
 
-1. Load and preprocess real-world physiological data.  
+1. Load and preprocess real-world data.  
 2. Handle missing values and physiologically implausible measurements.  
-3. Extract statistical, dynamic, and data-quality features.  
+3. Extract features.  
 4. Normalize features across all recordings.  
 5. Apply **Isolation Forest** for unsupervised anomaly detection.  
-6. Provide an outline of evaluation metrics (precision, recall, F1).  
+6. Provide evaluation metrics (precision, recall, F1).  
 
 ---
 
@@ -56,25 +56,68 @@ The core ML model is an **Isolation Forest**:
 
 - Type: Unsupervised anomaly detection  
 - Goal: Learn "normal" sensor behavior and flag deviations as potential faults  
-- Advantage: Works without labeled data (important for medical datasets where faults are rarely annotated)  
-
-➡️ *[Placeholder: Insert pseudocode or pipeline diagram]*  
+- Advantage: Works without labeled data (important for medical datasets where faults are rarely annotated)
 
 ---
 
-## 📈 Evaluation
+## Evaluation
 
-The dataset does **not contain ground-truth fault labels**, so:
+Since the dataset does not include ground-truth anomaly labels, 
+traditional metrics such as precision, recall, and F1-score could not be computed.  
 
-- Precision/Recall/F1 metrics are included for illustration only.  
-- In practice, evaluation requires either:
-  - Expert-annotated fault labels, or  
-  - Synthetic fault injection for benchmarking.  
+Instead, evaluation is performed using:
+- **Anomaly score distributions** from the Isolation Forest model, which illustrate how well the model separates potential faults from normal readings.
+- **Visualization of detected anomalies**, providing qualitative insight into where and how the model flags suspicious patterns.
 
-➡️ *[Placeholder: Add results, charts, or anomaly detection visualizations]*  
+⚠️ In a real-world scenario, expert-annotated labels or fault logs would be necessary to validate performance quantitatively (e.g., via precision/recall/F1).
 
+# Anomaly Score Distribution
+Histogram showing anomaly scores for recordings.
+![Anomaly Scores](./Plots/11.png)
+
+
+# Isolation Forest Anomaly Scores per Recording
+Bar chart showing anomaly scores for recordings, showing 2 scores above 0.05 of potential faults.
+![Anomaly Scores](./Plots/1.png)
+
+# Normal vs Faulty Recordings
+Scatter plot showing anomaly scores for recordings, showing 4 true faults.
+![Normal vs Faulty](./Plots/2.png)
+
+# Raw Signals
+Line chart showing anomaly scores for bidmc_19_Numerics.csv, showing too much variation of HR.
+![Raw Signals](./Plots/3.png)
+
+# Isolation Forest: Anomaly Scores per Recording (sorted)
+Bar chart showing anomaly scores, showing 2 scores above 0.05 of potential faults.
+![Raw Signals](./Plots/4.png)
+
+# Distribution of Anomaly Scores
+Bar chart showing anomaly scores, showing 2 scores above 0.05 of potential faults.
+![Raw Signals](./Plots/5.png)
+
+# SpO2 Mean vs HR Mean
+Scatter plot showing anomaly scores, showing 4 true faults with distinct deviations in SpO2 and HR means.
+![Raw Signals](./Plots/6.png)
+
+
+# Feature Distributions by Fault Status
+Box plot showing anomaly scores, highlighting 8 key features with distinct distributions between faulty and normal recordings.
+![Raw Signals](./Plots/7.png)
+
+# Correlation Heatmap
+Heatmap, highlighting strong correlations (e.g., 0.8) between hr_var and hr_max_jump, indicating potential dependencies among features.
+![Raw Signals](./Plots/8.png)
+
+# Raw Signals
+Line chart for bidmc_41_Numerics.csv, showing too much variation of HR with a significant drop below 60 bpm.
+![Raw Signals](./Plots/9.png)
+
+# Raw Signals
+Line chart for bidmc_45_Numerics.csv
+![Raw Signals](./Plots/10.png)
 
 ## Note
 
-This project is for educational and research purposes only.
+This project is for educational purposes only.
 It is not intended for clinical decision-making.
